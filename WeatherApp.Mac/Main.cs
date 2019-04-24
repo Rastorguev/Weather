@@ -7,7 +7,9 @@ namespace WeatherApp.Mac
         static void Main(string[] args)
         {
             NSApplication.Init();
-            NSApplication.Main(args);
-        }
+            NSApplication.SharedApplication.Delegate = new AppDelegate();
+			NSApplication.Main(args);
+
+		}
     }
 }

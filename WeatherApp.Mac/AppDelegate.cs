@@ -1,23 +1,30 @@
 ﻿using AppKit;
+using CoreGraphics;
 using Foundation;
+using WeatherApp;
+using Xamarin.Forms;
+using Xamarin.Forms.Platform.MacOS;
 
-namespace WeatherApp.Mac
+[Register("AppDelegate")]
+public class AppDelegate : FormsApplicationDelegate
 {
-    [Register("AppDelegate")]
-    public class AppDelegate : NSApplicationDelegate
-    {
-        public AppDelegate()
-        {
-        }
+	public AppDelegate()
+	{
+		var style = NSWindowStyle.Closable | NSWindowStyle.Resizable | NSWindowStyle.Titled;
 
-        public override void DidFinishLaunching(NSNotification notification)
-        {
-            // Insert code here to initialize your application
-        }
+		var rect = new CGRect(200, 1000, 1024, 768);
+		MainWindow = new NSWindow(rect, style, NSBackingStore.Buffered, false)
+		{
+			Title = "Xamarin.Forms on Mac!", TitleVisibility = NSWindowTitleVisibility.Hidden
+		};
+	}
 
-        public override void WillTerminate(NSNotification notification)
-        {
-            // Insert code here to tear down your application
-        }
-    }
+	public override NSWindow MainWindow { get; }
+
+	public override void DidFinishLaunching(NSNotification notification)
+	{
+		Forms.Init();
+		LoadApplication(new App());
+		base.DidFinishLaunching(notification);
+	}
 }
